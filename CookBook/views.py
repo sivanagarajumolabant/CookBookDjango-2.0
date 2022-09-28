@@ -281,7 +281,32 @@ def menu_view_creation(request):
     return Response(final_list)
 
 
+@api_view(['GET','POST'])
+def migration_names_list(request):
+    migration_data = Migrations.objects.values('Migration_Name').distinct()
+    final_list = []
+    inter_dict = {}
+    for migration in migration_data:
+        inter_dict['Migration_Name'] = migration['Migration_Name']
+        final_list.append(inter_dict.copy())
+    return Response(final_list)
 
+
+@api_view(['GET','POST'])
+def parent_object_list(request):
+    project_version = request.data['Project_Version_Id']
+    migration_name = request.data['Migration_Name']
+
+    parent_objects_data = ObjectTypes.objects.filter(Project_Version_Id = project_version, Migration_Name = migration_name,
+                                                     Parent_Object_Id = '')
+    final_list = []
+    inter_dict = {}
+
+    for parent in parent_objects_data.values():
+        inter_dict['Parent_Object'] = parent['Object_Type']
+        final_list.append(inter_dict.copy())
+
+    return Response(final_list)
 
 
 

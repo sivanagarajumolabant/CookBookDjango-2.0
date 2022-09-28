@@ -27,8 +27,7 @@ urlpatterns = [
 
                   # Menu Creation Api's
                   path('menu_view_creation/', views.menu_view_creation, name='menu_view_creation'),
-
-
+                  path('migration_names_list/', views.migration_names_list, name='migration_names_list'),
+                  path('parent_object_list/', views.parent_object_list, name='parent_object_list'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
