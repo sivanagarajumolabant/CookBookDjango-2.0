@@ -11,11 +11,13 @@ class Users(AbstractUser):
     is_user_admin = models.BooleanField(default=False)
     user_registration_status = models.TextField(default='Awaiting for admin approval')
 
+
 class Migrations(models.Model):
     Project_Version_Id = models.CharField(max_length=100, default=0)
     Migration_Name = models.CharField(max_length=100)
     Project_Version_Limit = models.CharField(max_length=50, blank=True)
     Feature_Version_Limit = models.CharField(max_length=50, blank=True)
+
 
 class ObjectTypes(models.Model):
     Object_Id = models.BigAutoField(primary_key=True)
@@ -23,6 +25,7 @@ class ObjectTypes(models.Model):
     Migration_Name = models.CharField(max_length=100)
     Object_Type = models.CharField(max_length=100, blank=True)
     Parent_Object_Id = models.CharField(max_length=50, blank=True)
+
 
 class Features(models.Model):
     Feature_Id = models.BigAutoField(primary_key=True)
@@ -49,6 +52,7 @@ class Features(models.Model):
     Feature_Requested_Date = models.DateField(null=True, blank=True)
     Feature_Approval_Date = models.DateField(blank=True, null=True)
 
+
 def user_directory_path(instance, Filename):
     path_file = 'media/' + instance.Feature_Id.Migration_TypeId + '/' + 'Project_V' + str(
         instance.Feature_Id.Project_Version_Id) + '/' + instance.Feature_Id.Object_Type + '/' + instance.Feature_Id.Feature_Name + '/' + 'Feature_V' + str(
@@ -65,6 +69,7 @@ def user_directory_path(instance, Filename):
                                                                         instance.Feature_Id.Feature_Name,
                                                                         instance.Feature_Id.Feature_Version_Id,
                                                                         instance.AttachmentType, Filename)
+
 
 class Attachments(models.Model):
     Choices = [
@@ -94,6 +99,7 @@ class Approvals(models.Model):
     Created_at = models.DateField(auto_now_add=True)
     Expiry_date = models.DateField(null=True, blank=True)
 
+
 class Permissions(models.Model):
     User_Email = models.CharField(max_length=100)
     Migration_Name = models.CharField(max_length=100, null=True)
@@ -102,12 +108,12 @@ class Permissions(models.Model):
     Current_Permissions = models.CharField(max_length=10000)
 
 
-
-
-
-
-
-
-
-
-
+class dynamicrules(models.Model):
+    input_field = models.CharField(max_length=100,null=True)
+    output_field  = models.CharField(max_length=100,null=True)
+    User_Email = models.CharField(max_length=100,null=True)
+    Migration_Name = models.CharField(max_length=50, null=True)
+    Object_type = models.CharField(max_length=100,null=True)
+    Parent_Object_Type = models.CharField(max_length=100, blank=True)
+    Child_Object_Type = models.CharField(max_length=100,null=True)
+    rules_toApply = models.CharField(max_length=1000, blank=True)

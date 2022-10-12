@@ -39,6 +39,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         #         approval_record.delete()
         return data
 
+
 class Resetpasswordemailserializer(serializers.Serializer):
     email = serializers.EmailField(min_length=2)
 
@@ -122,7 +123,38 @@ class migrationcreateserializer(serializers.ModelSerializer):
         model = Migrations
         fields = '__all__'
 
+
 class FeatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Features
         fields = "__all__"
+
+
+class FeatureNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Features
+        fields = ('Feature_Name',)
+
+
+class ApprovalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Approvals
+        fields = "__all__"
+
+
+class PermissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Permissions
+        fields = "__all__"
+
+
+class DynamicRulesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = dynamicrules
+        fields = "__all__"
+
+
+class DynamicRulesListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = dynamicrules
+        fields = ('input_field','output_field','rules_toApply',)
